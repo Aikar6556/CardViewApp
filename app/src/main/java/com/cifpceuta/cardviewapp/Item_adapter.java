@@ -67,7 +67,16 @@ public class Item_adapter extends RecyclerView.Adapter<Item_adapter.ViewHolder> 
 
         }
 
+
         void bindData(final String item){ tvItem.setText(item);}
+    }
+
+    public void setFilterList(ArrayList<String> lista){
+
+        list_items = lista;
+        notifyDataSetChanged();
+
+
     }
 
 

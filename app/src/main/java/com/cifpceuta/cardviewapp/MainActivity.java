@@ -2,6 +2,7 @@ package com.cifpceuta.cardviewapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     Item_adapter adaptador = new Item_adapter(elementos);
 
+    SearchView barraBusqueda;
+
 
 
 
@@ -32,7 +35,40 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu,menu);
+
+        barraBusqueda = findViewById(R.id.bBusqueda);
+
+        barraBusqueda.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filtrado(newText);
+                return false;
+            }
+        });
+
+
+
         return true;
+
+
+    }
+
+
+    private void filtrado (String texto){
+
+        ArrayList<String> filteredList_items = new ArrayList<>();
+        for(String item : elementos){
+            if(item.toLowerCase().contains(texto.toLowerCase())){
+                filteredList_items.add(item);
+            }
+        }
+        adaptador.setFilterList(filteredList_items);
+
 
     }
 
@@ -147,4 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
 }
