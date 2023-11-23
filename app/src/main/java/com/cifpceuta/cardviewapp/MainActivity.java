@@ -3,6 +3,7 @@ package com.cifpceuta.cardviewapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -153,6 +154,21 @@ public class MainActivity extends AppCompatActivity {
 
             Toast.makeText(MainActivity.this,"Opcion3",Toast.LENGTH_LONG).show();
             //Interactivo
+        } else if (id == R.id.opcion4) {
+
+
+            if (recyclerView.getLayoutManager().getClass().equals(LinearLayoutManager.class)) {
+                Toast.makeText(MainActivity.this, "Opcion4", Toast.LENGTH_LONG).show();
+
+                recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+            }else {
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            }
+
+
+
         }
 
         return true;
