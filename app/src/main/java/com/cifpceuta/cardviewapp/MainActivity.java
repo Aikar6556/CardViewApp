@@ -8,10 +8,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -28,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
     SearchView barraBusqueda;
 
+    FloatingActionButton fabAñadir;
+
+
+
 
 
 
@@ -38,6 +48,47 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu,menu);
 
         barraBusqueda = findViewById(R.id.bBusqueda);
+
+        fabAñadir = findViewById(R.id.fabAñadir);
+
+        fabAñadir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Dialog dialog = new Dialog(MainActivity.this);
+
+                // le asociamos el layout correspondiente:
+                dialog.setContentView(R.layout.activity_dialog);
+
+
+                EditText etTextoItem = dialog.findViewById(R.id.etTextoItem);
+                Button btnDiaLogAñadir = dialog.findViewById(R.id.btnDialogAñadir);
+
+                btnDiaLogAñadir.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String item = etTextoItem.getText().toString();
+
+                        elementos.add(item);
+
+                        adaptador.notifyItemInserted(elementos.size()-1);
+
+
+                        recyclerView.scrollToPosition(elementos.size()-1);
+
+                        dialog.dismiss();
+
+                    }
+                });
+
+
+
+                dialog.show();
+
+
+
+            }
+        });
 
         barraBusqueda.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
